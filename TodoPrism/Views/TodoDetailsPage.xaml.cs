@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TodoPrism.Models;
+using TodoPrism.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,18 +24,9 @@ namespace TodoPrism.Views
     /// </summary>
     public sealed partial class TodoDetailsPage : Page
     {
-        public TodoItem Todo { get; set; }
-
-        public IEnumerable<Priority> PriorityValues => Enum.GetValues(typeof(Priority)).Cast<Priority>();
         public TodoDetailsPage()
         {
             this.InitializeComponent();
-        }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            Todo = e.Parameter as TodoItem ?? new TodoItem() { Deadline = DateTimeOffset.Now };
-
-            DataContext = this;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

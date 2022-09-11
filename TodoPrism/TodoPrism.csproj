@@ -147,6 +147,7 @@
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Services\TodoService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\TodoDetailsViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

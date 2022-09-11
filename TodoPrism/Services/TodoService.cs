@@ -18,6 +18,11 @@ namespace TodoPrism.Services
             return await GetAsync<List<TodoItem>>(new Uri(serverUrl, "api/Todo"));
         }
 
+        public async Task<TodoItem> GetTodoDetailsAsync(int todoId)
+        {
+            return await GetAsync<TodoItem>(new Uri(serverUrl, $"api/Todo/{todoId}"));
+        }
+
         private async Task<T> GetAsync<T>(Uri uri)
         {
             using (var client = new HttpClient())

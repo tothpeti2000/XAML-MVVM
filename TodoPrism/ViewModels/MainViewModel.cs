@@ -23,11 +23,11 @@ namespace TodoPrism.ViewModels
 
         private readonly INavigationService navigationService;
 
-        public DelegateCommand NavigateToAddTodoCommand { get; }
+        public DelegateCommand<int?> NavigateToAddTodoCommand { get; }
 
         public MainViewModel(INavigationService navigationService)
         {
-            NavigateToAddTodoCommand = new DelegateCommand(NavigateToAddTodo);
+            NavigateToAddTodoCommand = new DelegateCommand<int?>(todoId => NavigateToAddTodo(todoId));
             this.navigationService = navigationService;
         }
 
@@ -39,9 +39,9 @@ namespace TodoPrism.ViewModels
             base.OnNavigatedTo(e, viewModelState);
         }
 
-        private void NavigateToAddTodo()
+        private void NavigateToAddTodo(int? todoId)
         {
-            navigationService.Navigate(PageTokens.TodoDetailsPage, null);
+            navigationService.Navigate(PageTokens.TodoDetailsPage, todoId);
         }
     }
 }
