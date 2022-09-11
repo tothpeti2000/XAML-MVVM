@@ -1,0 +1,223 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "BME Todo Service",
+    "version": "0.1.1.7"
+  },
+  "paths": {
+    "/api/Todo": {
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Az összes teendő lekérdezése",
+        "operationId": "GetTodos",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TodoItem"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Új teendő felvétele a listába",
+        "operationId": "AddTodo",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Az felvenni kívánt új teendő adatai",
+            "schema": {
+              "$ref": "#/definitions/TodoItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TodoItem"
+            }
+          }
+        }
+      }
+    },
+    "/api/Todo/{id}": {
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Egy teendő lekérdezése a megadott azonosítóval",
+        "operationId": "GetTodo",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Lekérdezendő teendő azonosítója",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TodoItem"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Megadott azonosítóval rendelkező teendő módosítása",
+        "operationId": "UpdateTodo",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Módosítandó teendő azonosítója",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Módosítandó teendő adatai",
+            "schema": {
+              "$ref": "#/definitions/TodoItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TodoItem"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Megadott azonosítóval rendelkező teendő törlése",
+        "operationId": "DeleteTodo",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Törlendő teendő azonosítója",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Priority": {
+      "description": "Prioritási szintek",
+      "enum": [
+        "High",
+        "Normal",
+        "Low"
+      ],
+      "type": "string",
+      "x-ms-enum": {
+        "name": "Priority",
+        "modelAsString": true
+      }
+    },
+    "TodoItem": {
+      "description": "Teendő adatai",
+      "required": [
+        "deadline",
+        "description",
+        "isDone",
+        "priority",
+        "title"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "description": "Teendő azonosítója",
+          "type": "integer"
+        },
+        "isDone": {
+          "description": "Teendő készültsági állapota",
+          "type": "boolean"
+        },
+        "title": {
+          "description": "Teendő címe",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "description": {
+          "description": "Teendő leírása",
+          "maxLength": 1500,
+          "type": "string"
+        },
+        "deadline": {
+          "format": "date-time",
+          "description": "Teendő határideje",
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/definitions/Priority"
+        }
+      }
+    }
+  }
+}

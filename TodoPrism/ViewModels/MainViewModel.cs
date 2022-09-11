@@ -7,8 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TodoPrism.Models;
 using TodoPrism.Services;
+using TodoPrism.TodoServiceApi;
 
 namespace TodoPrism.ViewModels
 {

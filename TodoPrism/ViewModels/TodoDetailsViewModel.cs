@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TodoPrism.Models;
 using TodoPrism.Services;
+using TodoPrism.TodoServiceApi;
 
 namespace TodoPrism.ViewModels
 {
@@ -41,7 +41,7 @@ namespace TodoPrism.ViewModels
             }
             else
             {
-                Todo = await new TodoService().GetTodoDetailsAsync((int)todoId);
+                Todo = await new TodoService().GetTodoAsync((int)todoId);
             }
 
             base.OnNavigatedTo(e, viewModelState);

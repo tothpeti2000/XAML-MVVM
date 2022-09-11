@@ -141,8 +141,7 @@
     </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\TodoPriorityToBrushConverter.cs" />
-    <Compile Include="Models\Priority.cs" />
-    <Compile Include="Models\TodoItem.cs" />
+    <Compile Include="OpenAPIs\swagger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Services\TodoService.cs" />
@@ -205,6 +204,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="OpenAPIs\swagger.json">
+      <Namespace>TodoPrism.TodoServiceApi</Namespace>
+      <ClassName> TodoServiceApiClient</ClassName>
+      <CodeGenerator>NSwagCSharp</CodeGenerator>
+      <SourceUri>https://bmetodoservice.azurewebsites.net/swagger/v1/swagger.json</SourceUri>
+    </None>
     <None Include="TodoPrism_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using TodoPrism.Models;
+using TodoPrism.TodoServiceApi;
 using TodoPrism.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
