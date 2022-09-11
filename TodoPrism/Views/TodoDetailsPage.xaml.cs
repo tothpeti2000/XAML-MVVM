@@ -39,8 +39,7 @@ namespace TodoPrism.Views
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.Todos.Add(Todo);
-
+            //MainPage.Todos.Add(Todo);
             Frame.GoBack();
         }
     }
