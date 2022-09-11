@@ -26,6 +26,11 @@
                     Command="{Binding SaveTodoCommand}"
                     Icon="Save"
                     Label="Mentés" />
+
+                <AppBarButton
+                    Command="{Binding DeleteTodoCommand}"
+                    Icon="Delete"
+                    Label="Törlés" />
             </CommandBar>
 
             <StackPanel

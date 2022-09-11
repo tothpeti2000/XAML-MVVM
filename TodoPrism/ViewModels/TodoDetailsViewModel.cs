@@ -25,10 +25,13 @@ namespace TodoPrism.ViewModels
         private readonly INavigationService navigationService;
 
         public DelegateCommand SaveTodoCommand { get; }
+        public DelegateCommand DeleteTodoCommand { get; set; }
 
         public TodoDetailsViewModel(INavigationService navigationService)
         {
             SaveTodoCommand = new DelegateCommand(SaveTodo);
+            DeleteTodoCommand = new DelegateCommand(DeleteTodo);
+
             this.navigationService = navigationService;
         }
 
@@ -45,17 +48,29 @@ namespace TodoPrism.ViewModels
                 Todo = await new TodoService().GetTodoAsync((int)todoId);
             }
 
+            DeleteTodoCommand = new DelegateCommand(DeleteTodo, () => Todo.Id != null);
+
             base.OnNavigatedTo(e, viewModelState);
         }
 
         private async void SaveTodo()
         {
-            if (todo.Id == null)
+            if (Todo.Id == null)
             {
-                await new TodoService().AddTodoAsync(todo);
+                await new TodoService().AddTodoAsync(Todo);
             } else
             {
-                await new TodoService().UpdateTodoAsync((int)todo.Id, todo);
+                await new TodoService().UpdateTodoAsync((int)Todo.Id, Todo);
+            }
+
+            navigationService.Navigate(PageTokens.MainPage, null);
+        }
+
+        private async void DeleteTodo()
+        {
+            if (Todo.Id != null)
+            {
+                await new TodoService().DeleteTodoAsync((int)Todo.Id);
             }
 
             navigationService.Navigate(PageTokens.MainPage, null);
