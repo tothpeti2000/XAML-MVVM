@@ -12,10 +12,6 @@ namespace TodoPrism.Views
         {
             InitializeComponent();
         }
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(TodoDetailsPage), null);
-        }
 
         private void Todos_OnItemClick(object sender, ItemClickEventArgs e)
         {
