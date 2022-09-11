@@ -1,4 +1,5 @@
-﻿using Prism.Windows.Mvvm;
+﻿using Prism.Commands;
+using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,11 @@ namespace TodoPrism.ViewModels
 
         private readonly INavigationService navigationService;
 
-        //public DelegateCommand<TodoItem> NavigateToAddTodoCommand { get; }
+        public DelegateCommand SaveTodoCommand { get; }
 
         public TodoDetailsViewModel(INavigationService navigationService)
         {
-            //NavigateToAddTodoCommand = new DelegateCommand<TodoItem>(todo => NavigateToAddTodo(todo));
+            SaveTodoCommand = new DelegateCommand(SaveTodo);
             this.navigationService = navigationService;
         }
 
@@ -47,9 +48,17 @@ namespace TodoPrism.ViewModels
             base.OnNavigatedTo(e, viewModelState);
         }
 
-        private void NavigateToAddTodo(TodoItem todo)
+        private async void SaveTodo()
         {
-            navigationService.Navigate(PageTokens.TodoDetailsPage, todo);
+            if (todo.Id == null)
+            {
+                await new TodoService().AddTodoAsync(todo);
+            } else
+            {
+                await new TodoService().UpdateTodoAsync((int)todo.Id, todo);
+            }
+
+            navigationService.Navigate(PageTokens.MainPage, null);
         }
     }
 }
