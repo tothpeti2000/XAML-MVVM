@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="TodoPrism.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="using:TodoPrism.Converters"
+    Style="{StaticResource PageStyle}"
+    xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
+    mc:Ignorable="d">
+    
+    <Page.Resources>
+        <c:TodoPriorityToBrushConverter x:Key="PriorityToBrushConverter" 
+                                        HighPriorityBrush="IndianRed" 
+                                        NormalPriorityBrush="Transparent" 
+                                        LowPriorityBrush="LightBlue"/>
+        <c:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <CommandBar Grid.Row="0" Style="{StaticResource NavigationViewTitleHeaderContentControlTextStyle}" Content="Teendők" OverflowButtonVisibility="Collapsed">
+            <AppBarButton Icon="Add" Label="Hozzáadás" Click="AddButton_Click"/>
+        </CommandBar>
+        
+        <ListView Grid.Row="1" ItemsSource="{Binding Todos}" ItemClick="Todos_OnItemClick" IsItemClickEnabled="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Background="{Binding Priority, Converter={StaticResource PriorityToBrushConverter}}">
+                        <Grid>
+                            <TextBlock Text="{Binding Title}" FontWeight="SemiBold"/>
+                            <SymbolIcon HorizontalAlignment="Right" Symbol="Accept"
+                                        Visibility="{Binding IsDone, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        </Grid>
+                        <TextBlock Text="{Binding Deadline}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="TodoPrism.Views.TodoDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TodoPrism.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <CommandBar Grid.Row="0" Style="{StaticResource NavigationViewTitleHeaderContentControlTextStyle}" Content="Részletek" OverflowButtonVisibility="Collapsed">
+                <AppBarButton Icon="Save" Label="Mentés" Click="Save_Click"/>
+            </CommandBar>
+
+            <StackPanel Grid.Row="1" Margin="12,0" MaxWidth="320" HorizontalAlignment="Left">
+                <CheckBox Content="Kész"
+                          IsChecked="{Binding Todo.IsDone, Mode=TwoWay}"
+                          Margin="0,12,0,12"/>
+                <TextBox Header="Cím"
+                         Text="{Binding Todo.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,12"/>
+                <TextBox Header="Részletek"
+                         Text="{Binding Todo.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Height="150"
+                         AcceptsReturn="True"
+                         Margin="0,0,0,12"/>
+                <ComboBox Header="Prioritás"
+                          ItemsSource="{Binding PriorityValues}"
+                          SelectedItem="{Binding Todo.Priority, Mode=TwoWay}"
+                          Margin="0,0,0,12"
+                          HorizontalAlignment="Stretch"/>
+                <DatePicker Header="Határidő"
+                            Date="{Binding Todo.Deadline, Mode=TwoWay}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
