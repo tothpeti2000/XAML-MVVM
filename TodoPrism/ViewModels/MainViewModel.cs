@@ -24,24 +24,37 @@ namespace TodoPrism.ViewModels
         private readonly INavigationService navigationService;
 
         public DelegateCommand<int?> NavigateToAddTodoCommand { get; }
+        public DelegateCommand<int?> DeleteTodoCommand { get; set; }
 
         public MainViewModel(INavigationService navigationService)
         {
             NavigateToAddTodoCommand = new DelegateCommand<int?>(todoId => NavigateToAddTodo(todoId));
+            DeleteTodoCommand = new DelegateCommand<int?>((todoId) => DeleteTodo((int)todoId));
+
             this.navigationService = navigationService;
         }
 
         public override async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
-            var todos = await new TodoService().GetTodosAsync();
-            Todos = new ObservableCollection<TodoItem>(todos);
-
+            await GetTodos();
             base.OnNavigatedTo(e, viewModelState);
         }
 
         private void NavigateToAddTodo(int? todoId)
         {
             navigationService.Navigate(PageTokens.TodoDetailsPage, todoId);
+        }
+
+        private async Task GetTodos()
+        {
+            var todos = await new TodoService().GetTodosAsync();
+            Todos = new ObservableCollection<TodoItem>(todos);
+        }
+
+        private async void DeleteTodo(int todoId)
+        {
+            await new TodoService().DeleteTodoAsync(todoId);
+            await GetTodos();
         }
     }
 }

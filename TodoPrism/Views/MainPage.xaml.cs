@@ -21,5 +21,13 @@ namespace TodoPrism.Views
 
             vm.NavigateToAddTodoCommand.Execute(todo.Id);
         }
+
+        private void DeleteTodo(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MainViewModel;
+            var todo = (sender as FrameworkElement).DataContext as TodoItem;
+
+            vm.DeleteTodoCommand.Execute(todo.Id);
+        }
     }
 }
